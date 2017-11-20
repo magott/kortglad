@@ -1,0 +1,118 @@
+.navbar-brand {
+    background-image: url("../img/fiks.png");
+    background-repeat: no-repeat;
+    background-position: -1px 8px;
+    padding-left: 35px;
+}
+.forecast {
+    display: table-cell;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.forecast:not(:last-child) {
+    border-right: 1px solid #999999;
+}
+
+.forecasts {
+    display: table-row;
+}
+.forecast-table {
+    display: table;
+}
+.official:not(:last-child)::after {
+    content: ", ";
+}
+.phone:not(:last-child)::after {
+    content: ", ";
+}
+.loading{
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 6px;
+}
+
+.badge-notify{
+    background:red;
+    position:relative;
+    top: -10px;
+    left: -5px;
+}
+
+button .badge-notify{
+    top: -20px;
+    left: 15px;
+}
+
+@-webkit-viewport{width: device-width;}
+@-moz-viewport{width: device-width;}
+@-ms-viewport{width: device-width;}
+@-o-viewport{width: device-width;}
+@viewport{width: device-width;}
+
+.table-filter-row {
+    margin-bottom: 3px;
+}
+
+.nav-tabs{
+    margin-bottom: 20px;
+}
+
+.filter-count{
+    margin-top: 2px;
+}
+
+.refsworld{
+    margin-top: 10px;
+    max-width: 100%;
+}
+.calendar-controls{
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.message-body{
+    word-break: break-word;
+}
+
+@media screen and (max-width: 991px) and (min-width: 768px){
+    body { padding-top: 110px; }
+}
+
+@media (min-width: 992px) {
+    .md-pull-right {
+        float: right;
+    }
+}
+
+.footer{
+    margin-top: 10px;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -ms-animation: spin .7s infinite linear;
+    -webkit-animation: spinw .7s infinite linear;
+    -moz-animation: spinm .7s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
+}

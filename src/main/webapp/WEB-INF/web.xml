@@ -1,0 +1,27 @@
+<web-app>
+
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>resourceBase</param-name>
+            <param-value>/static/*</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>Fiks</filter-name>
+        <filter-class></filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Fiks</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+</web-app>

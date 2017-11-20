@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="no_nb">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body class="ml-2">
+    <h1>Kortglad</h1>
+    <p>Sjekk kortstatistikk for dommer</p>
+
+    <form class="form-inline mb-2">
+        <input type="text" class="form-control col-6" id="dommer" placeholder="https://www.fotball.no/fotballdata/person/dommeroppdrag/?fiksId=xxxx">
+        <button type="button" class="btn btn-primary ml-1 has-spinner" id="fetch">Hent <statistikk></statistikk></button>
+    </form>
+
+
+    <div id="response" class="mt-4" style="display: none">
+        <h4 id="dommernavn"></h4>
+        <table class="table hidden">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Snitt</th>
+                    <th scope="col">Totalt</th>
+                </tr>
+            </thead>
+            <tbody id="kortdata">
+
+            </tbody>
+        </table>
+        <h5>
+            <a id="viskamper" class="btn btn-primary" data-toggle="collapse" href="#kamper" aria-expanded="false" aria-controls="kamper">
+
+            </a>
+        </h5>
+        <div class="collapse" id="kamper">
+            <table class="table hidden">
+                <thead>
+                <tr>
+                    <th scope="col">Dato</th>
+                    <th scope="col">Kamp</th>
+                    <th scope="col">Statistikk</th>
+                    <th scope="col">Link</th>
+                </tr>
+                </thead>
+                <tbody id="kampdata">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.min.js" integrity="sha256-DYyWoZ81AkDpPAJcZqoKFkhTnt5EV74MlgFi8yEr0lc=" crossorigin="anonymous"></script>
+    <script src="kortglad.js"></script>
+</body>
+
+</html>
