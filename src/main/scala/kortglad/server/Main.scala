@@ -1,7 +1,7 @@
 package kortglad.server
 
 import fs2.{Stream, Task}
-import kortglad.resources.RefereeResource
+import kortglad.resources.{RefereeResource, StaticResources}
 // import fs2.{Stream, Task}
 
 import org.http4s.server.blaze._
@@ -15,6 +15,7 @@ object Main extends StreamApp {
     BlazeBuilder
       .bindHttp(8080, "localhost")
       .mountService(RefereeResource.corsVersion, "/referee")
+        .mountService(StaticResources.service, "/")
 //      .mountService(services, "/api")
       .serve
   }

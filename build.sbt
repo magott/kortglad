@@ -1,6 +1,6 @@
 name:="kortglad"
 
-scalaVersion:="2.12.3"
+scalaVersion:="2.12.4"
 
 scalacOptions += "-target:jvm-1.8"
 
