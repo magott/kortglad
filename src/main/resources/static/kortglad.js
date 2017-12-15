@@ -100,7 +100,7 @@ function handleMatches(matches){
                 $('<td>').html(match.home +" - "+ match.away),
                 $('<td class="small">')
                         .html("R&oslashde: "+ match.cardStats.red+ "<br/>Gult nr 2: "+match.cardStats.yellowToRed +"</br>Gule: "+match.cardStats.yellow),
-                $('<td>').html("<a href="+match.url+">fotball.no</a>")
+                $('<td>').html("<a target='_blank' href="+match.url+">fotball.no</a>")
 
         ).appendTo('#kampdata');
     });
