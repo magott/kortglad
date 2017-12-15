@@ -17,5 +17,6 @@ steps:
     type: push
     candidate: '${{build_image}}'
     tag: 'latest'
-    username: '${{dockerUsername}}'
-    password: '${{dockerPassword}}'
+    credentials:
+      username: '${{dockerUsername}}'
+      password: '${{dockerPassword}}'
