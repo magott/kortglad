@@ -1,0 +1,14 @@
+version: '1.0'
+steps:
+  generate_dockerfile:
+    image: noamt/pre-cached-sbt
+    working_directory: ${{main_clone}}
+    commands:
+      - sbt -mem 4096 clean compile stage
+
+  build_step:
+    type: build
+    image_name: mortenag/kortglad
+    working_directory: ${{main_clone}}
+    dockerfile: Dockerfile
+    tag: latest
