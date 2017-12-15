@@ -6,6 +6,11 @@ scalacOptions += "-target:jvm-1.8"
 
 organization := "com.andersen-gott"
 
+enablePlugins(JavaAppPackaging)
+
+//enablePlugins(LinuxPlugin)
+
+
 val http4sVersion = "0.17.5"
 val circeVersion = "0.8.0"
 
