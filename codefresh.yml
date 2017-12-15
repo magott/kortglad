@@ -11,4 +11,11 @@ steps:
     image_name: mortenag/kortglad
     working_directory: ${{main_clone}}
     dockerfile: Dockerfile
-    tag: latest
+    tag: '${{CF_BRANCH}}'
+
+  push_to_registry:
+    type: push
+    candidate: '${{build_image}}'
+    tag: 'latest'
+    username: '${{dockerUsername}}'
+    password: '${{dockerPassword}}'
