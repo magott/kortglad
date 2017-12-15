@@ -39,7 +39,7 @@ function fetchStats(fiksId){
     $("#response").hide();
     clearData();
     $("#fetch").html("<i class='fa fa-spinner fa-spin fa-fw'></i>Henter statistikk")
-    var jqxhr = $.get( "http://localhost:8080/referee/"+fiksId, function(data) {
+    var jqxhr = $.get( "/referee/"+fiksId, function(data) {
         // console.debug(data);
         handleResponse(data);
     })
