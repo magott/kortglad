@@ -6,17 +6,9 @@ steps:
     commands:
       - sbt -mem 4096 clean compile stage
 
-  build_image:
+  build_and_push_image:
     type: build
     image_name: mortenag/kortglad
     working_directory: ${{main_clone}}
     dockerfile: Dockerfile
-    tag: '${{CF_BRANCH}}'
-
-  push_to_registry:
-    type: push
-    candidate: '${{build_image}}'
     tag: 'latest'
-    credentials:
-      username: '${{dockerUsername}}'
-      password: '${{dockerPassword}}'
