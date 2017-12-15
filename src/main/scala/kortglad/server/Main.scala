@@ -18,7 +18,6 @@ object Main extends StreamApp {
   implicit val S = Strategy.fromExecutionContext(ExecutionContext.global)
 
   override def stream(args: List[String]): Stream[Task, Nothing] = {
-//    Stream.eval(Task(println(ServerBuilder.DefaultHost))).drain
     BlazeBuilder
       .bindHttp(8080, "0.0.0.0")
       .mountService(RefereeResource.corsVersion, "/referee")

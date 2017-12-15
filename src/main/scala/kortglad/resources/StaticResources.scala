@@ -24,6 +24,7 @@ object StaticResources {
     StaticFile.fromResource("/static/" + file, Some(request)).getOrElseF(NotFound())
 
   val service = HttpService {
+    case request @ GET -> Root => static("index.html", request)
     case request @ GET -> Root / path if List(".js", ".css", ".map", ".html", ".webm").exists(path.endsWith) =>
       static(path, request)
   }
