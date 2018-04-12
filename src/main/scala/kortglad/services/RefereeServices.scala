@@ -1,6 +1,7 @@
 package kortglad.services
 
 import java.net.URI
+import java.time.{LocalDate, LocalDateTime}
 
 import kortglad.data.RefereeStats
 import kortglad.scraper.RefereeScraper
@@ -18,7 +19,12 @@ class RefereeServices {
     val refereeMatches = findRefereeMatches(fiksId)
 
     val matches = refereeMatches._2.par.map(RefereeScraper.scrapeMatch)
-    new RefereeStats(matches.toList,refereeMatches._1)
+      .filter(_.tidspunkt.isBefore(LocalDateTime.now)).toList match {
+      case h :: t => h :: t.takeWhile(_.tidspunkt.getYear == LocalDate.now.getYear)
+      case x => x
+    }
+
+    new RefereeStats(matches,refereeMatches._1)
   }
 
 }
