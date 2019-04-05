@@ -20,7 +20,7 @@ object Main extends IOApp {
   def routes(bec:ExecutionContext, client:Client[IO]) = {
     Router(
       "/" -> new StaticResources[IO](bec).service,
-      "/referee" -> CORS(new RefereeResource[IO, IO.Par](new RefereeScraper[IO, IO.Par](client)).service))
+      "/referee" -> CORS(new RefereeResource(new RefereeScraper(client)).service))
   }
 
 

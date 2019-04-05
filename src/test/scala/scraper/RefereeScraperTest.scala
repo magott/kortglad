@@ -29,7 +29,7 @@ object RefereeScraperTest extends IOApp{
 
   override def run(args: List[String]): IO[ExitCode] =
     BlazeClientBuilder[IO](ExecutionContext.global).resource.use { client =>
-      val scraper = new RefereeScraper[IO, IO.Par](Logger(true, true, logAction = Some(log _))(client))
+      val scraper = new RefereeScraper(Logger(true, true, logAction = Some(log _))(client))
       scraper.findRefereeStats(morten).flatMap(dump).as(ExitCode.Success)
     }
 

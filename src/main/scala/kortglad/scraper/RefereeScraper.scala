@@ -6,7 +6,7 @@ import java.time.{LocalDate, LocalDateTime}
 import java.time.format.DateTimeFormatter
 
 import cats.Parallel
-import cats.effect.Sync
+import cats.effect.{ContextShift, IO, Sync}
 import cats.implicits._
 import kortglad.data.{CardStat, MatchStat, RefereeStats}
 import org.http4s.Uri
@@ -19,11 +19,11 @@ import scala.collection.JavaConverters._
 /**
   *
   */
-class RefereeScraper[F[_] : Sync, P[_]](client:Client[F])(implicit p:Parallel[F, P]) extends Http4sClientDsl[F]{
+class RefereeScraper(client:Client[IO])(implicit shift:ContextShift[IO]) extends Http4sClientDsl[IO]{
   val fotballBaseUrl = Uri.uri("https://www.fotball.no")
   def refereeTemplate(fiksId:Int) = (fotballBaseUrl / "fotballdata" / "person"/"dommeroppdrag").+?("fiksId", fiksId)
 
-  def scrapeMatch(matchUri: Uri) =
+  def scrapeMatch(matchUri: Uri):IO[MatchStat] =
     client.expect[String](matchUri).map{ doc =>
       RefereeScraper.parseMatch(matchUri, Jsoup.parse(doc))
     }
@@ -34,7 +34,7 @@ class RefereeScraper[F[_] : Sync, P[_]](client:Client[F])(implicit p:Parallel[F,
       (refName, urls.map(x => fotballBaseUrl.withPath(x)))
     }
 
-  def findRefereeStats(fiksId: Int) : F[RefereeStats] =
+  def findRefereeStats(fiksId: Int) : IO[RefereeStats] =
     scrapeMatches(fiksId).flatMap{
       case (uri, matches) =>
         matches.parTraverse(scrapeMatch).map{ fetched =>

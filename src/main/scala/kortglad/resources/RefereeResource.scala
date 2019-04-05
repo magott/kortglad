@@ -13,9 +13,9 @@ import org.http4s.circe._
 /**
   *
   */
-class RefereeResource[F[_] : Sync, P[_]](scraper:RefereeScraper[F, P]) extends Http4sDsl[F] {
+class RefereeResource(scraper:RefereeScraper) extends Http4sDsl[IO] {
 
-  val service = HttpRoutes.of[F] {
+  val service = HttpRoutes.of[IO] {
     case request @ GET -> Root =>
       Ok("foooo")
     case request @ GET -> Root / IntVar(fiksId) =>
