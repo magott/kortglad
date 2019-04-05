@@ -2,14 +2,15 @@ package kortglad.resources
 
 import java.io.File
 
+import cats.effect.{ContextShift, IO, Sync}
 import org.http4s.dsl._
 import org.http4s._
-import fs2.Task
-import fs2.interop.cats._
+
+import scala.concurrent.ExecutionContext
 /**
   *
   */
-object StaticResources {
+class StaticResources[F[_] : Sync : ContextShift](bec:ExecutionContext) extends Http4sDsl[F] {
 
 //  val service = HttpService {
 //    case request @ GET -> Root / "index.html" =>
@@ -20,10 +21,10 @@ object StaticResources {
 //        .getOrElseF(NotFound())
 //  }
 
-  def static(file: String, request: Request) =
-    StaticFile.fromResource("/static/" + file, Some(request)).getOrElseF(NotFound())
+  def static(file: String, request: Request[F]) =
+    StaticFile.fromResource[F]("/static/" + file, bec, Some(request)).getOrElseF(NotFound())
 
-  val service = HttpService {
+  val service = HttpRoutes.of[F] {
     case request @ GET -> Root => static("index.html", request)
     case request @ GET -> Root / path if List(".js", ".css", ".map", ".html", ".webm").exists(path.endsWith) =>
       static(path, request)

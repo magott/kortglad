@@ -6,8 +6,9 @@ import java.time.LocalDateTime
 
 import io.circe.Encoder
 import io.circe.generic.JsonCodec
+import org.http4s.Uri
 
-class RefereeStats(val matches:List[MatchStat], val refereeName:String){
+case class RefereeStats(matches:List[MatchStat], refereeName:String){
   val cardTotals:CardStat = matches.map(_.cards).foldLeft(CardStat.empty)(_+_)
   val cardAverages:CardAvarages = CardAvarages.from(cardTotals, matches.size)
   val totalMatches = matches.size
@@ -22,7 +23,7 @@ object RefereeStats {
     Encoder.forProduct5("refereeName", "totals", "averages", "numMatches", "matches")(rs => (rs.refereeName, rs.cardTotals, rs.cardAverages,rs.totalMatches, rs.matches))
 }
 
-case class MatchStat(url:URI, tidspunkt: LocalDateTime, home:String, away:String, cards:CardStat){
+case class MatchStat(url:Uri, tidspunkt: LocalDateTime, home:String, away:String, cards:CardStat){
 }
 object MatchStat{
   implicit val matchStatEncoder: Encoder[MatchStat] =

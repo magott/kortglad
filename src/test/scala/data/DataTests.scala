@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 import kortglad.data.{CardAvarages, CardStat, MatchStat, RefereeStats}
 import io.circe._
 import io.circe.generic.auto._
-import io.circe.parser._
+import io.circe.jawn._
 import io.circe.syntax._
 
 

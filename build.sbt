@@ -1,8 +1,10 @@
 name:="kortglad"
 
-scalaVersion:="2.12.4"
+scalaVersion:="2.12.8"
 
-scalacOptions += "-target:jvm-1.8"
+scalacOptions ++= Seq(
+    "-target:jvm-1.8",
+    "-Ypartial-unification")
 
 organization := "com.andersen-gott"
 
@@ -11,8 +13,8 @@ enablePlugins(JavaAppPackaging)
 //enablePlugins(LinuxPlugin)
 
 
-val http4sVersion = "0.17.5"
-val circeVersion = "0.8.0"
+val http4sVersion = "0.20.0-M7"
+val circeVersion = "0.11.1"
 
 libraryDependencies ++=
   Seq(
@@ -20,12 +22,7 @@ libraryDependencies ++=
     "org.http4s" %% "http4s-dsl"          % http4sVersion,
     "org.http4s" %% "http4s-blaze-server" % http4sVersion,
     "org.http4s" %% "http4s-blaze-client" % http4sVersion,
-    "org.http4s" %% "http4s-circe"        % http4sVersion
+    "org.http4s" %% "http4s-circe"        % http4sVersion,
+    "io.circe"   %% "circe-generic"       % circeVersion
 
   )
-
-libraryDependencies ++= Seq(
-    "io.circe" %% "circe-core",
-    "io.circe" %% "circe-generic",
-    "io.circe" %% "circe-parser"
-).map(_ % circeVersion)
