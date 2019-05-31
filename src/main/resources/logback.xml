@@ -6,6 +6,7 @@
     </appender>
 
     <logger name = "org.http4s" level = "info"/>
+    <logger name = "org.http4s.blaze.channel.nio1.NIO1SocketServerGroup" level = "warn"/>
 
     <root level="info">
         <appender-ref ref="STDOUT" />
