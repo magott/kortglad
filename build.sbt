@@ -18,11 +18,13 @@ val circeVersion = "0.11.1"
 
 libraryDependencies ++=
   Seq(
-    "org.jsoup"   % "jsoup"               % "1.6.1",
-    "org.http4s" %% "http4s-dsl"          % http4sVersion,
-    "org.http4s" %% "http4s-blaze-server" % http4sVersion,
-    "org.http4s" %% "http4s-blaze-client" % http4sVersion,
-    "org.http4s" %% "http4s-circe"        % http4sVersion,
-    "io.circe"   %% "circe-generic"       % circeVersion
+    "org.jsoup"          % "jsoup"                % "1.6.1",
+    "org.http4s"         %% "http4s-dsl"          % http4sVersion,
+    "org.http4s"         %% "http4s-blaze-server" % http4sVersion,
+    "org.http4s"         %% "http4s-blaze-client" % http4sVersion,
+    "org.http4s"         %% "http4s-circe"        % http4sVersion,
+    "io.circe"           %% "circe-generic"       % circeVersion,
+    "ch.qos.logback"      % "logback-classic"     % "1.1.2"
+
 
   )

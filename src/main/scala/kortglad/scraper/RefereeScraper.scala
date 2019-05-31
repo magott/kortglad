@@ -14,6 +14,7 @@ import org.http4s.client.Client
 import org.http4s.client.dsl.Http4sClientDsl
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.JavaConverters._
 /**
@@ -34,7 +35,7 @@ class RefereeScraper(client:Client[IO])(implicit shift:ContextShift[IO]) extends
       (refName, urls.map(x => fotballBaseUrl.withPath(x)))
     }
 
-  def findRefereeStats(fiksId: Int) : IO[RefereeStats] =
+  def findRefereeStats(fiksId: Int) : IO[RefereeStats] = {
     scrapeMatches(fiksId).flatMap{
       case (uri, matches) =>
         matches.parTraverse(scrapeMatch).map{ fetched =>
@@ -45,10 +46,12 @@ class RefereeScraper(client:Client[IO])(implicit shift:ContextShift[IO]) extends
           RefereeStats(result,uri)
         }
     }
+  }
 
 }
 
 object RefereeScraper {
+  val log:Logger = LoggerFactory.getLogger(getClass)
 
   def parseMatches(fiksId:Int, document:Document) : (String, List[String]) = {
     val body = document.body()
@@ -56,7 +59,7 @@ object RefereeScraper {
     val dommerRader = body.select("tr").asScala.filter(_.select("td").asScala.exists(_.text() == "Dommer"))
     val urls = dommerRader.flatMap(_.select("td > a").asScala.map(_.attr("href")))
       .filter(_.contains("/kamp/")).toList
-
+    log.info(s"Scraping referee named $refName")
     (refName, urls)
   }
 
