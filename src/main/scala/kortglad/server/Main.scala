@@ -15,6 +15,8 @@ import scala.concurrent.ExecutionContext
 import org.http4s.server.blaze._
 import org.http4s.server.middleware._
 
+import scala.util.Properties
+
 object Main extends IOApp {
 
   def routes(bec:ExecutionContext, client:Client[IO]) = {
@@ -24,10 +26,11 @@ object Main extends IOApp {
   }
 
 
+  val port = Properties.envOrElse("PORT", "8080").toInt
   val resource = for {
     bec <- Resource.make(IO(Executors.newCachedThreadPool()))(e => IO(e.shutdown())).map(ExecutionContext.fromExecutor)
     client <- BlazeClientBuilder[IO](ExecutionContext.global).resource
-    r <- BlazeServerBuilder[IO].bindHttp(8080, "0.0.0.0").withHttpApp(routes(bec, client).orNotFound).resource
+    r <- BlazeServerBuilder[IO].bindHttp(port, "0.0.0.0").withHttpApp(routes(bec, client).orNotFound).resource
   } yield r
 
   def run(args: List[String]): IO[ExitCode] =
