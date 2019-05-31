@@ -34,7 +34,5 @@ object RefereeScraperTest extends IOApp{
     }
 
 
-
-
 //  println(RefereeScraper.scrapeMatch("/fotballdata/kamp/?fiksId=6653689"))
 }
