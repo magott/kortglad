@@ -2,7 +2,7 @@ package kortglad.data
 
 import java.net.URI
 import java.text.DecimalFormat
-import java.time.LocalDateTime
+import java.time.{LocalDate, LocalDateTime, Month, Year}
 
 import io.circe.Encoder
 import io.circe.generic.JsonCodec
@@ -24,10 +24,16 @@ object RefereeStats {
 }
 
 case class MatchStat(url:Uri, tidspunkt: LocalDateTime, home:String, away:String, cards:CardStat){
+  def inCurrentSeason : Boolean = MatchStat.thisSeason(tidspunkt)
 }
 object MatchStat{
   implicit val matchStatEncoder: Encoder[MatchStat] =
     Encoder.forProduct5("kickoff", "home", "away", "url", "cardStats")(rs => (rs.tidspunkt.toString, rs.home, rs.away, rs.url.toString, rs.cards))
+
+  def seasonYear = if(LocalDateTime.now().isBefore(LocalDateTime.now().withMonth(Month.MARCH.getValue))) Year.now().minusYears(1) else Year.now()
+  def seasonStart = seasonYear.atMonth(Month.MARCH).atDay(1).atStartOfDay()
+  def seasonEnd = seasonYear.plusYears(1).atMonth(Month.MARCH).atDay(1).atStartOfDay()
+  def thisSeason: LocalDateTime => Boolean = d => d.isBefore(seasonEnd) && d.isAfter(seasonStart)
 
 }
 

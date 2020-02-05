@@ -2,7 +2,7 @@ package kortglad.scraper
 
 import java.net.URI
 import java.text.DecimalFormat
-import java.time.{LocalDate, LocalDateTime}
+import java.time.{LocalDate, LocalDateTime, Month, Period, Year}
 import java.time.format.DateTimeFormatter
 
 import cats.Parallel
@@ -40,13 +40,15 @@ class RefereeScraper(client:Client[IO])(implicit shift:ContextShift[IO]) extends
       case (uri, matches) =>
         matches.parTraverse(scrapeMatch).map{ fetched =>
           val result = fetched.filter(_.tidspunkt.isBefore(LocalDateTime.now)) match {
-            case h :: t => h :: t.takeWhile(_.tidspunkt.getYear == LocalDate.now.getYear)
+            case h :: t => h :: t.takeWhile(_.inCurrentSeason)
             case x => x
           }
           RefereeStats(result,uri)
         }
     }
   }
+
+
 
 }
 
