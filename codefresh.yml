@@ -12,10 +12,3 @@ steps:
     working_directory: ${{main_clone}}
     dockerfile: Dockerfile
     tag: ${{CF_BRANCH}}
-
-#  push_image:
-#    type: push
-#    candidate: ${{build_image}}
-#    registry: heroku
-#    tag: latest
-#    image_name: mortenag/kortglad
