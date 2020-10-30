@@ -9,6 +9,7 @@ import cats.Parallel
 import cats.effect.{ContextShift, IO, Sync}
 import cats.implicits._
 import kortglad.data.{CardStat, MatchStat, RefereeStats}
+import kortglad.scraper.RefereeScraper.log
 import org.http4s.Uri
 import org.http4s.client.Client
 import org.http4s.client.dsl.Http4sClientDsl
@@ -41,6 +42,7 @@ class RefereeScraper(client: Client[IO])(implicit shift: ContextShift[IO])
     }
 
   def findRefereeStats(fiksId: Int): IO[RefereeStats] = {
+    log.info(s"Prepareing to scrape $fiksId")
     scrapeMatches(fiksId).flatMap {
       case (uri, matches) =>
         matches.parTraverse(scrapeMatch).map { fetched =>
