@@ -15,6 +15,7 @@ import org.http4s.client.Client
 import org.http4s.client.dsl.Http4sClientDsl
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.JavaConverters._
@@ -67,7 +68,7 @@ object RefereeScraper {
     val dommerRader = body
       .select("tr")
       .asScala
-      .filter(_.select("td").asScala.exists(_.text() == "HD"))
+      .filter(hovedDommerIkkeFutsal)
     val urls = dommerRader
       .flatMap(_.select("td > a").asScala.map(_.attr("href")))
       .filter(_.contains("/kamp/"))
@@ -99,6 +100,11 @@ object RefereeScraper {
       away,
       CardStat(yellows.size(), yellowReds.size(), reds.size())
     )
+  }
+
+  val hovedDommerIkkeFutsal : Element => Boolean = rowElement => {
+    val cells = rowElement.select("td").asScala
+    cells.exists(_.text() == "HD") && cells.forall(!_.text().startsWith("Futsal"))
   }
 
 }
